@@ -4,12 +4,12 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ProducrList from "./Tps/Store/ProducrList";
+import ProductList from "./Tps/Store/ProductList";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <ProducrList/>
+      <ProductList/>
   </React.StrictMode>
 );
 
