@@ -1,13 +1,15 @@
 import {useState} from "react";
 
 export default function Form(){
-    const[inputName ,setInputName]=useState();
-    const [inputAge ,setInputAge]=useState('');
-    const [inputCity , setInputCity]=useState('')
+    const[formValue , setFormValue ]= useState({})
     const [inputCondition ,setInputCondition]=useState(false);
 
     const handleChange = (e)=>{
-        console.log(e.currentTarget.value)
+        const id = e.currentTarget.id;
+        const value = e.currentTarget.value
+        setFormValue(prevState => {
+            return{...prevState,...{[id]:value}}
+        })
     }
 
     const getCondition = ()=>{
@@ -17,7 +19,7 @@ export default function Form(){
     return(
 
         <div className='container my-4'>
-
+            {JSON.stringify(formValue)}
            <form>
                <div className="form-group">
                    <label>Name :</label>
