@@ -4,6 +4,7 @@ import Product from "./Product";
 export default function ProductList() {
     const [productList, setProductList] = useState([]);
     const [searchInput , setSearchInput]=useState('')
+    const [categories , setCategories]=useState('')
 
     const displayProduct = () => {
         const productTemp = productList.filter(product => {
@@ -33,15 +34,33 @@ export default function ProductList() {
             .then((response) => response.json())
             .then((response) => setProductList(response));
     };
+    const getCategories = () => {
+        fetch("https://fakestoreapi.com/products/categories")
+            .then((response) => response.json())
+            .then((response) => setCategories(response));
+    };
 
     useEffect(() => {
         getProduct();
+        getCategories();
     }, []);
 
     const handleSearch = (e) => {
         e.preventDefault()
         const searchValue = document.querySelector('#Search').value;
         setSearchInput(searchValue)
+    };
+
+    const displayCategories = () => {
+        if (Array.isArray(categories)) {
+            return categories.map(category =>
+                <button className="btn btn-secondary">
+                    {category}
+                </button>
+            );
+        } else {
+            return <div>No categories available</div>;
+        }
     };
 
     return (
@@ -60,6 +79,12 @@ export default function ProductList() {
                       <input type="submit" className="btn btn-primary" value="search" onClick={handleSearch}/>
 
                   </div>
+                  </div>
+                  <div className="row g-3 align-items-center">
+                      <div className="btn-group">
+                          {displayCategories()}
+
+                      </div>
                   </div>
               </form>
             <h1>produits :</h1>
