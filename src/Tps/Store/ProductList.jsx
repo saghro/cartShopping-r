@@ -3,13 +3,24 @@ import Product from "./Product";
 
 export default function ProductList() {
     const [productList, setProductList] = useState([]);
+    const [searchInput , setSearchInput]=useState('')
 
     const displayProduct = () => {
-        if (productList.length > 0) {
-            return productList.map((product, key) => {
+        const productTemp = productList.filter(product => {
+            const idString = String(product.id); // Convert id to string
+            return (
+                idString.includes(searchInput) ||
+                product.title.includes(searchInput) ||
+                product.description.includes(searchInput)
+            );
+        });
+
+        if (productTemp.length > 0) {
+            return productTemp.map((product, key) => {
                 return <Product product={product} key={key} />;
             });
         }
+
         return (
             <tr>
                 <td colSpan={7}>no Items</td>
@@ -27,9 +38,31 @@ export default function ProductList() {
         getProduct();
     }, []);
 
+    const handleSearch = (e) => {
+        e.preventDefault()
+        const searchValue = document.querySelector('#Search').value;
+        setSearchInput(searchValue)
+    };
+
     return (
         <div className="container-fluid mx-auto w-75 my-3">
-            <h1>Liste des produits :</h1>
+            <h2>Search :</h2>
+              <form>
+                  <div className="row g-3 align-items-center">
+                      <div className="col-auto">
+                      <label className="col-form-label">Search</label>
+                       </div>
+                      <div className="col-auto">
+                      <input type="text"  id="Search" className="form-control"/>
+                      </div>
+
+                  <div className="col-auto">
+                      <input type="submit" className="btn btn-primary" value="search" onClick={handleSearch}/>
+
+                  </div>
+                  </div>
+              </form>
+            <h1>produits :</h1>
             <table className="table">
                 <thead>
                 <tr>
