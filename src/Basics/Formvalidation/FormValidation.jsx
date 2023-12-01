@@ -1,17 +1,31 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 
 export default function FormValidation() {
     const inputName=useRef();
     const inputEmail = useRef();
     const inputMessage = useRef();
     const inputAcceptCondition = useRef();
+    const [erros,setErros]=useState([]);
 
     const validateForm = () => {
       const nameValue = inputName.current.value;
       const emailValue = inputEmail.current.value;
       const messageValue = inputMessage.current.value;
       const acceptConditionValue = inputAcceptCondition.current.checked;
-      console.log({nameValue ,emailValue,messageValue,acceptConditionValue})
+      let isFormValid = true ;
+      if(nameValue.trim() === ''){
+          setErros(prevState => {
+              return [...prevState,'name required']
+          })
+         isFormValid=false;
+      }
+        if(emailValue.trim() === ''){
+            setErros(prevState => {
+                return [...prevState,'email required']
+            })
+            isFormValid=false;
+        }
+      return isFormValid;
     };
     const handleSubmit = (e) => {
        e.preventDefault()
