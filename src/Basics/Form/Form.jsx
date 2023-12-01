@@ -5,17 +5,17 @@ export default function Form(){
     const [inputCondition ,setInputCondition]=useState(false);
 
     const handleChange = (e)=>{
-        const id = e.currentTarget.id;
-        const value = e.currentTarget.value
+        const currentTarget = e.currentTarget
+        const id = currentTarget.id;
+        let value =currentTarget.value;
+         if (currentTarget.type === 'checkbox') {
+            value = currentTarget.checked;
+        }
         setFormValue(prevState => {
             return{...prevState,...{[id]:value}}
         })
     }
 
-    const getCondition = ()=>{
-        const conditionValue = document.querySelector("#accept").checked;
-        setInputCondition(conditionValue);
-    }
     return(
 
         <div className='container my-4'>
@@ -33,8 +33,18 @@ export default function Form(){
                    <label>City :</label>
                    <input type="text"  id="city" className="form-control" onChange={handleChange}/>
                </div>
+               <div className="form-group">
+                   <label>Country :</label>
+                   <select className='form-control' id ='country' onClick={handleChange} >
+                       <option value="MA">MAROC</option>
+                       <option value="DZ">DZAIR</option>
+                       <option value="BRD">BARDQIZ</option>
+                       <option value="SBN">SBNYA</option>
+                       <option value="other">Other</option>
+                   </select>
+               </div>
                <div className="form-check">
-                   <input type="checkbox"  id="accept" className="form-check-input" onClick={getCondition} />
+                   <input type="checkbox"  id="accept" className="form-check-input" onClick={handleChange} />
                    <label htmlFor='accept' className="form-check-label">Accept our rules :</label>
                </div>
                <div>
