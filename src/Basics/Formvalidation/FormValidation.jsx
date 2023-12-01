@@ -25,6 +25,24 @@ export default function FormValidation() {
             })
             isFormValid=false;
         }
+        if(messageValue.trim() === ''){
+            setErros(prevState => {
+                return [...prevState,'message required']
+            })
+            isFormValid=false;
+        }
+        if(nameValue.trim() === ''){
+            setErros(prevState => {
+                return [...prevState,'name required']
+            })
+            isFormValid=false;
+        }
+        if(!acceptConditionValue.checked){
+            setErros(prevState => {
+                return [...prevState,'accept condition required']
+            })
+            isFormValid=false;
+        }
       return isFormValid;
     };
     const handleSubmit = (e) => {
