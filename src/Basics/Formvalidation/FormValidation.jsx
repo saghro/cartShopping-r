@@ -5,7 +5,7 @@ export default function FormValidation() {
     const inputEmail = useRef();
     const inputMessage = useRef();
     const inputAcceptCondition = useRef();
-    const [erros,setErros]=useState([]);
+    const [errors,setErrors]=useState([]);
 
     const validateForm = () => {
       const nameValue = inputName.current.value;
@@ -14,31 +14,31 @@ export default function FormValidation() {
       const acceptConditionValue = inputAcceptCondition.current.checked;
       let isFormValid = true ;
       if(nameValue.trim() === ''){
-          setErros(prevState => {
+          setErrors(prevState => {
               return [...prevState,'name required']
           })
          isFormValid=false;
       }
         if(emailValue.trim() === ''){
-            setErros(prevState => {
+            setErrors(prevState => {
                 return [...prevState,'email required']
+            })
+
+            isFormValid=false;
+        }else if(emailValue.match(/^\s+@\.\s+$/)){
+            setErrors(prevState => {
+                return [...prevState,'email invalid']
             })
             isFormValid=false;
         }
         if(messageValue.trim() === ''){
-            setErros(prevState => {
+            setErrors(prevState => {
                 return [...prevState,'message required']
             })
             isFormValid=false;
         }
-        if(nameValue.trim() === ''){
-            setErros(prevState => {
-                return [...prevState,'name required']
-            })
-            isFormValid=false;
-        }
-        if(!acceptConditionValue.checked){
-            setErros(prevState => {
+        if(!acceptConditionValue){
+            setErrors(prevState => {
                 return [...prevState,'accept condition required']
             })
             isFormValid=false;
@@ -46,12 +46,23 @@ export default function FormValidation() {
       return isFormValid;
     };
     const handleSubmit = (e) => {
-       e.preventDefault()
-        validateForm()
+        setErrors([])
+       if (!validateForm()){
+           e.preventDefault()
+       }
     };
 
     return (
         <div className={'container-fluid w-75 mx-auto my-5'}>
+
+            {errors.length>0 ?
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error</strong>
+                    <ul>
+                        {errors.map((error,key) => <li key={key}>{error}</li>)}
+                    </ul>
+                </div>
+                : ''}
             <form onSubmit={handleSubmit}>
                 <h1>Contact form</h1>
                 <hr/>
