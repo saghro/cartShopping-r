@@ -1,10 +1,14 @@
 import React from 'react';
-import {BrowserRouter, Routes} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from "./pages/Layout";
 
 export default function App() {
     return (
        <BrowserRouter>
-           <Routes></Routes>
+           <Routes>
+               <Route path='/' element={<Layout/>}></Route>
+           </Routes>
+
        </BrowserRouter>
     );
 }

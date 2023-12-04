@@ -1,20 +1,27 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
-function Layout(props) {
+function Layout() {
     return (
        <>
-           <ul className="nav justify-content-center">
-               <li className="nav-item">
-                   <a className="nav-link active" href="/"> Home</a>
-               </li>
-               <li className="nav-item">
-                   <a className="nav-link" href="/blogs">Blogs</a>
-               </li>
-               <li className="nav-item">
-                   <a className="nav-link disabled" href="/contact">Contact</a>
+        <nav>
+            <ul className="nav justify-content-center">
+                <li className="nav-item">
+                    <Link to='/' className="nav-link">Home</Link>
 
-               </li>
-           </ul>
+                </li>
+                <li className="nav-item">
+                    <Link to='/blogs' className="nav-link">Blogs</Link>
+
+                </li>
+                <li className="nav-item">
+                    <Link to='/contact' className="nav-link">Contact</Link>
+
+
+                </li>
+            </ul>
+
+        </nav>
        </>
     );
 }
