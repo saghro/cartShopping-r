@@ -1,14 +1,24 @@
-import React from "react";
+import React, {useRef} from "react";
 
 export default function  FormValidation(){
+    const name=useRef();
+    const email = useRef();
+    const message = useRef();
+    const AcceptAllCondition = useRef();
+    const submitForm = (e) =>{
+        e.preventDefault()
+        const nameValue = name.current.value;
+        const emailValue = email.current.value;
+        console.log(nameValue)
+    }
     return(
         <div className={'container-fluid w-75 mx-auto my-5'}>
-            <form >
+            <form onSubmit={submitForm} >
                 <h1>Contact form</h1>
                 <hr/>
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="name">Name</label>
-                    <input type="text" id="name" className="form-control" />
+                    <input type="text" id="name" className="form-control" onChange={submitForm}/>
                 </div>
 
                 <div className="form-outline mb-4">
