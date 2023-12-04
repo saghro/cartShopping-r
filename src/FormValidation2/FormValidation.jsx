@@ -6,8 +6,18 @@ export default function  FormValidation(){
     const message = useRef();
     const acceptAllCondition = useRef();
     const [formSent , setFormSent] = useState(false)
+    const [errors ,setErrors]=useState([])
 
+   const validateForm = ()=>{
+       const nameValue = name.current.value;
+       const emailValue = email.current.value;
+       const messageValue = message.current.value;
+       const acceptAllConditionValue = acceptAllCondition.current.checked;
 
+       if(nameValue.trim() === ''){
+           alert('field name required')
+       }
+   }
     const restForm = ()=>{
         name.current.value=''
         email.current.value=''
@@ -17,19 +27,15 @@ export default function  FormValidation(){
 
     const submitForm = (e) => {
         e.preventDefault();
+        validateForm()
         const nameValue = name.current.value;
         const emailValue = email.current.value;
         const messageValue = message.current.value;
         const acceptAllConditionValue = acceptAllCondition.current.checked;
 
-        console.log({
-            nameValue,
-            emailValue,
-            messageValue,
-            acceptAllConditionValue,
-        });
-        setFormSent(true)
-        restForm()
+
+       // setFormSent(true)
+        //restForm()
     };
     return(
         <div className={'container-fluid w-75 mx-auto my-5'}>
